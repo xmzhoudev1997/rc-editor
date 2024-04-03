@@ -4,8 +4,7 @@ npm install @xmzhou/rc-editor
 ```
 
 ## 说明
-* 组件是通过script标签的方式引入monaco-editor，这种方式不仅可以减少包体积，而且可以实现组件的国际化。因此需要设置`sourceUrl`指定资源所在路径，默认使用npm源`https://cdn.jsdelivr.net/npm/monaco-editor@0.47.0/min/vs`;
-* 组件支持国际化，目前支持`zh-CN`、`en-US`、`ja-JP`、`ko-KR`，如需更多请联系作者
+* 使用组件前请使用`registerEditor`调用，其中第一个参数是国际化参数，目前支持`zh-CN`、`en-US`、`ja-JP`、`ko-KR`。第二个参数是monaco-editor包的静态资源路径，默认使用npm源`https://cdn.jsdelivr.net/npm/monaco-editor@0.47.0/min/vs`;
 
 ## API
 ``` typescript
@@ -23,10 +22,6 @@ export interface RC_EDITOR_API {
      */
     value?: string;
     /**
-     * 编辑器语种，对所有实例生效
-     */
-    locale?: MONACO_EDITOR_LOCALE;
-    /**
      * 编辑器支持语言
      */
     language?: MONACO_EDITOR_LANGUAGE;
@@ -42,10 +37,6 @@ export interface RC_EDITOR_API {
      * ref对象，返回editor实例化对象
      */
     ref?: RC_EDITOR;
-    /**
-     * monaco editor loader.js所在目录的在线资源，不设置无法解决国际化问题
-     */
-    sourceUrl?: string;
     /**
      * 编辑器初始化后调用，`locale`和`sourceUrl`变动时也会触发
      * @returns 

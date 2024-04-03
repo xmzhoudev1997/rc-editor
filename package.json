@@ -1,6 +1,6 @@
 {
   "name": "@xmzhou/rc-editor",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "一个基于React和monaco editor的代码编辑器",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",

@@ -1,6 +1,8 @@
 import React, { type FC } from 'react';
-import { RCEditor } from '@xmzhou/rc-editor';
+import { RCEditor, registerEditor } from '@xmzhou/rc-editor';
 import './index.less';
+
+registerEditor();
 
 const Foo: FC = () => {
     return <RCEditor
