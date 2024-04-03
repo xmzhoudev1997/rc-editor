@@ -22,6 +22,11 @@
   "files": [
     "dist"
   ],
+  "homepage": "https://xmzhoudev1997.github.io/rc-editor/dist/index.html",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xmzhoudev1997/rc-editor"
+  },
   "commitlint": {
     "extends": [
       "@commitlint/config-conventional"
@@ -70,7 +75,7 @@
     "stylelint": "^14.9.1"
   },
   "dependencies": {
-    "@xmzhou/rc-editor": "^0.1.0",
+    "@xmzhou/rc-editor": "^0.2.0",
     "classnames": "^2.5.1",
     "monaco-editor": "^0.47.0"
   }
