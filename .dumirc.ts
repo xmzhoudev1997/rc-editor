@@ -1,8 +1,11 @@
 import { defineConfig } from 'dumi';
 
 export default defineConfig({
-  outputPath: 'docs-dist',
+  outputPath: '',
   themeConfig: {
-    name: '@xmzhou/rc-editor',
+    name: 'rc-editor',
   },
+  publicPath: process.env.NODE_ENV === 'development' ? '/' : '/rc-editor/dist/',
+  hash: true,
+  history: {type: 'hash',},
 });
