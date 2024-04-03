@@ -1,6 +1,6 @@
 {
   "name": "@xmzhou/rc-editor",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "一个基于React和monaco editor的代码编辑器",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -22,6 +22,11 @@
   "files": [
     "dist"
   ],
+  "homepage": "https://xmzhoudev1997.github.io/rc-editor/dist/index.html",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xmzhoudev1997/rc-editor"
+  },
   "commitlint": {
     "extends": [
       "@commitlint/config-conventional"
