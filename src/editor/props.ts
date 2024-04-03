@@ -1,14 +1,6 @@
-## 安装
-``` shell
-npm install @xmzhou/rc-editor
-```
+import monaco from 'monaco-editor/esm/vs/editor/editor.api.d';
 
-## 说明
-* 组件是通过script标签的方式引入monaco-editor，这种方式不仅可以减少包体积，而且可以实现组件的国际化。因此需要设置`sourceUrl`指定资源所在路径，默认使用npm源`https://cdn.jsdelivr.net/npm/monaco-editor@0.47.0/min/vs`;
-* 组件支持国际化，目前支持`zh-CN`、`en-US`、`ja-JP`、`ko-KR`，如需更多请联系作者
 
-## API
-``` typescript
 export type MONACO_EDITOR_LOCALE = 'zh-CN' | 'ja-JP' | 'ko-KR' | 'en-US';
 export type MONACO_EDITOR_LANGUAGE = 'bap' | 'go' | 'objective-c' | 'rust' | 'apex' | 'graphql' | 'pascal' | 'sb' | 'azcli' | 'handlebars' | 'pascaligo' | 'scala' | 'bat' | 'hcl' | 'perl' | 'scheme' | 'bicep' | 'html' | 'pgsql' | 'scss' | 'cameligo' | 'ini' | 'php' | 'shell' | 'clojure' | 'java' | 'pla' | 'solidity' | 'coffee' | 'javascript' | 'postiats' | 'sophia' | 'cpp' | 'julia' | 'powerquery' | 'sparql' | 'csharp' | 'kotlin' | 'powershell' | 'sql' | 'csp' | 'less' | 'protobuf' | 'st' | 'css' | 'lexon' | 'pug' | 'swift' | 'cypher' | 'liquid' | 'python' | 'systemverilog' | 'dart' | 'lua' | 'qsharp' | 'tcl' | 'dockerfile' | 'm3' | 'r' | 'twig' | 'ecl' | 'markdown' | 'razor' | 'typescript' | 'elixir' | 'mdx' | 'redis' | 'vb' | 'flow9' | 'mips' | 'redshift' | 'wgsl' | 'freemarker2' | 'msdax' | 'restructuredtext' | 'xml' | 'fsharp' | 'mysql' | 'ruby' | 'yaml' | 'text';
 export type RC_EDITOR = monaco.editor.IStandaloneCodeEditor;
@@ -54,4 +46,3 @@ export interface RC_EDITOR_API {
         editor: RC_EDITOR,
     ) => Promise<void>;
 }
-```
