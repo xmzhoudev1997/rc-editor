@@ -1,4 +1,4 @@
-import { useEffect, useImperativeHandle, useRef } from "react";
+import { useEffect, useImperativeHandle, useRef, useState } from "react";
 import { RC_EDITOR, RC_EDITOR_API } from "./props";
 
 export default ({
@@ -6,7 +6,7 @@ export default ({
     onInit,
 }: RC_EDITOR_API, ref?: React.ForwardedRef<RC_EDITOR>) => {
     const continerRef = useRef<HTMLDivElement>(null);
-    const cacheRef = useRef<RC_EDITOR>();
+    const [editor, setEditor] = useState<RC_EDITOR>();
     const handleInit = async () => {
         const container = continerRef.current;
         if (!container) {
@@ -17,23 +17,21 @@ export default ({
         if (!monaco) {
             return;
         }
-        let editor = cacheRef.current;
         let lastValue = '';
         if (editor) {
             lastValue = editor.getValue();
             editor.dispose();
-            cacheRef.current = undefined;
-            editor = undefined;
+            setEditor(undefined);
         }
-        cacheRef.current = monaco.editor.create(container, {
+        const newEditor = monaco.editor.create(container, {
             language: language || 'text',
             value: lastValue || value || '',
             ...(initOptions || {})
         });
-        editor = cacheRef.current;
+        setEditor(newEditor);
         if (editor) {
             if (onInit) {
-                await onInit(editor);
+                await onInit(newEditor);
             }
         }
     }
@@ -42,20 +40,18 @@ export default ({
         handleInit();
         document.addEventListener('onEditorRegistered', handleInit);
         return () => {
-            if (cacheRef.current) {
-                cacheRef.current.dispose();
+            if (editor) {
+                editor.dispose();
             }
             document.removeEventListener('onEditorRegistered', handleInit);
         }
     }, [])
     useEffect(() => {
-        const editor = cacheRef.current;
         if (editor && options) {
             editor.updateOptions(options);
         }
     }, [options])
     useEffect(() => {
-        const editor = cacheRef.current;
         if (!editor) {
             return;
         }
@@ -75,8 +71,8 @@ export default ({
         }
     }, [value])
     useImperativeHandle(ref, () => {
-        return cacheRef.current as any;
-    }, [cacheRef.current]);
+        return editor as any;
+    }, [editor]);
     return {
         continerRef,
     };
