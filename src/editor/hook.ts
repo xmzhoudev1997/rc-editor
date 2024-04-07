@@ -29,10 +29,8 @@ export default ({
             ...(initOptions || {})
         });
         setEditor(newEditor);
-        if (editor) {
-            if (onInit) {
-                await onInit(newEditor);
-            }
+        if (onInit && newEditor) {
+            await onInit(newEditor);
         }
     }
 
