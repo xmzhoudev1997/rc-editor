@@ -67,7 +67,7 @@ export default ({
                 }
             ]);
         }
-    }, [value])
+    }, [value, editor])
     useImperativeHandle(ref, () => {
         return editor as any;
     }, [editor]);
