@@ -1,3 +1,5 @@
+import { RC_EDITOR_TOOL } from "./props";
+
 const LOCALE_MAP = {
     'zh-CN': 'zh-cn',
     'ko-KR': 'ko',
@@ -7,7 +9,8 @@ const LOCALE_MAP = {
 
 export default async (
     locale: keyof typeof LOCALE_MAP = 'zh-CN',
-    url: string = 'https://cdn.jsdelivr.net/npm/monaco-editor@0.47.0/min/vs'
+    url: string = 'https://cdn.jsdelivr.net/npm/monaco-editor@0.47.0/min/vs',
+    callback: (tool: RC_EDITOR_TOOL)=> void = () => {},
 ) => {
     const _window = window as any;
     const editorRequire: any = await new Promise(resolve => {
@@ -15,9 +18,9 @@ export default async (
         if (!script) {
             script = document.createElement('script');
             script.id = 'monaco-editor-loader';
-            document.head.appendChild(script);
             script.type = 'text/javascript';
             script.src = `${url}${url.endsWith('/') ? '' : '/'}loader.js`;
+            document.head.appendChild(script);
             script.onload = () => {
                 resolve(_window.require);
             }
@@ -65,6 +68,9 @@ export default async (
             );
         })
     }
+    await callback(_window.monaco);
+
+    await new Promise(r => setTimeout(() => r(1), 3000)) 
     const event = new CustomEvent('onEditorRegistered', {});
     document.dispatchEvent(event);
 }

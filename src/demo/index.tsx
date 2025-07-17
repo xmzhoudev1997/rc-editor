@@ -1,5 +1,5 @@
 import React, { type FC } from 'react';
-import { RCEditor, registerEditor } from '@xmzhou/rc-editor';
+import { RCEditor, registerEditor } from '@tant/rc-editor';
 import './index.less';
 
 registerEditor();

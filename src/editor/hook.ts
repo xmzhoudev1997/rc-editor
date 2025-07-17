@@ -3,7 +3,7 @@ import { RC_EDITOR, RC_EDITOR_API } from "./props";
 
 export default ({
     options, value, language = 'text', initOptions,
-    onInit,
+    onInit, beforeInit,
 }: RC_EDITOR_API, ref?: React.ForwardedRef<RC_EDITOR>) => {
     const continerRef = useRef<HTMLDivElement>(null);
     const [editor, setEditor] = useState<RC_EDITOR>();
@@ -16,6 +16,9 @@ export default ({
         const monaco = _window.monaco;
         if (!monaco) {
             return;
+        }
+        if (beforeInit) {
+            await beforeInit(monaco);
         }
         let lastValue = '';
         if (editor) {
@@ -56,16 +59,16 @@ export default ({
         const monaco = (window as any).monaco;
         const oldValue = editor.getValue();
         if ((value || '') !== oldValue && monaco) {
-            const position = editor.getPosition() || { lineNumber: 1, column: 1 };
-            const row = position?.lineNumber || 1;
-            const col = position?.column || 1;
-            editor.executeEdits('', [
-                {
-                    range: new monaco.Range(row, col, row, col),
-                    text: value || '',
-                    forceMoveMarkers: true,
-                }
-            ]);
+            const range = editor .getModel()?.getFullModelRange();
+            if (range) {
+                editor.executeEdits('', [
+                    {
+                        range: range,
+                        text: value || '',
+                        forceMoveMarkers: true,
+                    }
+                ]);
+            }
         }
     }, [value, editor])
     useImperativeHandle(ref, () => {
